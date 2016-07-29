@@ -1,0 +1,23 @@
+<ion-view>
+    <ion-nav-title>
+        Noticias
+    </ion-nav-title>
+    <ion-content>
+        <div class="card" ng-repeat="item in news">
+            <div class="item item-avatar">
+                <img src="https://pbs.twimg.com/profile_images/468487228763549697/XbjG1kEL.jpeg">
+                <h2>{{ item.titulo }}</h2>
+                <p>{{ item.hora }}</p>
+            </div>
+            <div class="item item-image" ng-if="item.imgNoticia != 'NO'">
+                <img class="card-image" src="{{ item.imgNoticia }}" />
+            </div>
+            <div class="item item-body">
+                <p> {{ item.descripcion }} </p>
+                <p>
+                    <a ng-href="{{ item.link }}" onclick="window.open(this.href, '_system', 'location=no'); return false;" class="subdued">Ver mas</a>
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

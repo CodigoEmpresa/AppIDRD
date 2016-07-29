@@ -1,0 +1,20 @@
+﻿<ion-view>
+    <h2 class="center">
+        <img src="img/logo.png" width="330px"/>
+    </h2>
+    <form name="registroForm" ng-submit="registrarse(registroForm.$valid)" novalidate>
+        <div class="list list-inset">
+            <label class="item item-input" ng-class="{ 'has-error': registroForm.nombre.$invalid && !registroForm.nombre.$pristine }">
+                <input type="text" placeholder="Nombre" ng-model="nombre" required>
+            </label>
+            <label class="item item-input" ng-class="{ 'has-error': registroForm.identificacion.$invalid && !registroForm.identificacion.$pristine }">
+                <input type="number" placeholder="Identificación" ng-model="identificacion" required>
+            </label>
+        </div>
+        <div class="padding">
+            <button type="submit" class="button button-block button-calm" ng-disabled="registroForm.$invalid">
+                Registrarse
+            </button>
+        </div>
+    </form>
+</ion-view>
