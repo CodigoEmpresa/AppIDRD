@@ -75,7 +75,7 @@
     return self;
 })
 .factory('api_ciclovia', function ($http) {
-    var url = "http://www.idrd.gov.co/AndroidCiclovia/Consultas.php";
+    var url = "http://158.69.2.184/AndroidCiclovia/Consultas.php";
     return {
         registro: function (identificacion, nombre) {
             return $http.post(

@@ -8,28 +8,33 @@ var db;
 
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ngStorage'])
 
-.run(function ($ionicPlatform, $cordovaSQLite) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-    
+.run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
+    $ionicPlatform.ready(function() {
+        var reset_database = false;
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
+          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+          cordova.plugins.Keyboard.disableScroll(true);
+        }
+        if (window.StatusBar) {
+          // org.apache.cordova.statusbar required
+          StatusBar.styleDefault();
+        }
 
-    if (window.cordova) {
-        db = $cordovaSQLite.openDB({ name: "idrd.db", location: 'default' });
-    } else {
-        db = window.openDatabase("idrd.db", '1', 'IDRD ', 5 * 1024 * 1024);
-    }
+        if (window.cordova) {
+            db = $cordovaSQLite.openDB({ name: "idrd.db", location: 'default' });
+        } else {
+            db = window.openDatabase("idrd.db", '1', 'IDRD ', 5 * 1024 * 1024);
+        }
 
-    $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, identificacion TEXT, nombre TEXT)');
-  });
+        if(reset_database)
+        {
+            $cordovaSQLite.execute(db, 'DROP TABLE usuarios');
+        }
+
+        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, identificacion TEXT, nombre TEXT)');
+    });
 })
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -92,5 +97,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     });
 
-    $urlRouterProvider.otherwise('/inicio');
+    $urlRouterProvider.otherwise('inicio');
 });

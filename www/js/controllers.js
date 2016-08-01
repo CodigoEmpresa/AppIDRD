@@ -1,5 +1,5 @@
 angular.module('starter.controllers', [])
-.controller('InicioCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario, STORAGE) {
+.controller('InicioCtrl', function (api_ciclovia, $scope, $state, $rootScope, $ionicHistory, Usuario, STORAGE) {
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
@@ -23,6 +23,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario) {
+
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
@@ -74,8 +75,26 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('MapaCtrl', function ($scope) {
-    $scope.onMapInit = function (map) {
-        alert(map);
-    };
+.controller('MapaCtrl', function ($rootScope, $scope) {
+
+    var map,
+        vm = $scope,
+        root = $rootScope,
+        div = document.getElementById("mapa");
+
+    map = plugin.google.maps.Map.getMap(div);
+
+    map.setOptions({
+        mapType: plugin.google.maps.MapTypeId.ROADMAP,
+        controls: {
+            compass: true,
+            myLocationButton: true
+        },
+        gestures: {
+            scroll: true,
+            tilt: true,
+            rotate: true,
+            zoom: true
+        }
+    });
 });

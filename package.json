@@ -23,7 +23,7 @@
     "ionic-plugin-keyboard",
     {
       "variables": {
-        "API_KEY_FOR_ANDROID": "AIzaSyAiq2pWEMe3i4KCQewzLPYyvaP1XwXwVCI",
+        "API_KEY_FOR_ANDROID": "AIzaSyD-Ph3NY8xn1a3fsxGBTyVelD088oyGJfk",
         "API_KEY_FOR_IOS": "AIzaSyCzePSPvUDoU1AVf1lhe7hPNwWdDC8BGAU"
       },
       "locator": "cordova-plugin-googlemaps",
