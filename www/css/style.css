@@ -1,11 +1,4 @@
 /*color idrd #02a7eb*/ 
-body.menu-open .menu.menu-left {
-    display: block;
-}
-
-.menu.menu-left {
-    display: none;
-}
 
 .menu .scroll-content {
     background: /*url(../img/street.jpg) no-repeat -1260px -944px fixed;*/ #02a7eb;

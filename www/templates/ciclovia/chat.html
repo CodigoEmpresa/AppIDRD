@@ -3,7 +3,6 @@
         Chat
     </ion-nav-title>
     <ion-content>
-
         <div class="bubble" ng-repeat="item in messages">
             <div ng-class="{'message': true, 'idrd': personas_idrd.indexOf(item.idPersona) > -1 }">
                 <div ng-if="personas_idrd.indexOf(item.idPersona) < 0" class="row">
