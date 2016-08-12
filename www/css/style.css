@@ -64,6 +64,10 @@ body.menu-open .menu.menu-left {
     border: none !important;
 }
 
+.idrd-font-color {
+    color: #02A7EB !important;
+}
+
 /*Chat*/
 .bubble .avatar {
     text-align: center;

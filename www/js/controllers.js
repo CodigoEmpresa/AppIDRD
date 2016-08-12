@@ -59,7 +59,7 @@ angular.module('starter.controllers', [])
         });
     }
 
-    $scope.personas_idrd = ['6'];
+    $scope.personas_idrd = [6];
 
     $scope.enviarMensaje = function ()
     {

@@ -75,13 +75,12 @@
     return self;
 })
 .factory('api_ciclovia', function ($http) {
-    var url = "http://158.69.2.184/AndroidCiclovia/Consultas.php";
+    var url = "http://www.idrd.gov.co/SIM/androidciclovia/";
     return {
         registro: function (identificacion, nombre) {
             return $http.post(
-                url,
+                url+'persona/verificar',
                 {
-                    Opcion: 1,
                     Identificacion: identificacion,
                     Nombre: nombre
                 }
@@ -92,9 +91,8 @@
         obtenerIdUsuario: function (identificacion)
         {
             return $http.post(
-               url,
+               url+'persona/autenticar',
                {
-                   Opcion: 2,
                    Identificacion: identificacion
                }
            ).then(function (result) {
@@ -103,29 +101,36 @@
         },
         getNews: function () {
             return $http.post(
-                url,
-                { Opcion: 3 }
+                url+'noticias/obtener',
+                {}
             ).then(function (result) {
                 return result.data;
             });
         },
         getMessages: function () {
             return $http.post(
-                url,
-                { Opcion: 6 }
+                url+'mensajes/obtener',
+                {}
             ).then(function (result) {
                 return result.data;
             });
         },
         sendMessage: function (mensaje, id_persona) {
             return $http.post(
-                url,
+                url+'mensajes/insertar',
                 {
-                    Opcion: 7,
                     _Mensaje: mensaje,
                     _idPersona: id_persona
                 }
             ).then(function (result) {
+                return result.data;
+            });
+        },
+        obtenerCorredores: function() {
+            return $http.post(
+                url+'bicicorredores/obtener',
+                {}
+            ).then(function(result) {
                 return result.data;
             });
         }
