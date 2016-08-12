@@ -75,26 +75,31 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('MapaCtrl', function ($rootScope, $scope) {
-
-    var map,
-        vm = $scope,
-        root = $rootScope,
-        div = document.getElementById("mapa");
-
-    map = plugin.google.maps.Map.getMap(div);
-
-    map.setOptions({
-        mapType: plugin.google.maps.MapTypeId.ROADMAP,
-        controls: {
-            compass: true,
-            myLocationButton: true
-        },
-        gestures: {
-            scroll: true,
-            tilt: true,
-            rotate: true,
-            zoom: true
-        }
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope) {
+    api_ciclovia.obtenerCorredores().then(function (corredores) {
+        $scope.corredores = corredores;
     });
 });
+
+/*
+ var map,
+    vm = $scope,
+    root = $rootScope,
+    div = document.getElementById("mapa");
+
+map = plugin.google.maps.Map.getMap(div);
+
+map.setOptions({
+    mapType: plugin.google.maps.MapTypeId.ROADMAP,
+    controls: {
+        compass: true,
+        myLocationButton: true
+    },
+    gestures: {
+        scroll: true,
+        tilt: true,
+        rotate: true,
+        zoom: true
+    }
+});
+*/

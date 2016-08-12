@@ -1,0 +1,18 @@
+﻿<ion-view>
+    <ion-nav-title>
+        Corredor vial
+    </ion-nav-title>
+    <ion-content>
+		<a ng-href="{{ 'img/mapa_ciclovia.jpg' }}" onclick="window.open(this.href, '_system', 'location=no'); return false;">Ruta completa</a>
+    	<div class="list">
+			<a ng-repeat="item in corredores" class="item item-thumbnail-left" ng-click="cargarMapa(item.idCorredor)">
+				<img src="img/corredor_{{ item.idCorredor }}.jpg">
+				<h2>{{ item.nombreCorredor }}</h2>
+				<p>{{ item.descripcionCorredor }}</p>
+			</a>
+    	</div>
+    </ion-content>
+    <script id="templates/modal.html" type="text/ng-template">
+    	
+    </script>
+</ion-view>

@@ -87,12 +87,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
     })
-    .state('ciclovia.mapa', {
-        url: '/mapa',
+    .state('ciclovia.corredores', {
+        url: '/corredores',
         views: {
             'menuContent': {
-                templateUrl: 'templates/ciclovia/mapa.html',
-                controller: 'MapaCtrl'
+                templateUrl: 'templates/ciclovia/corredores.html',
+                controller: 'CorredoresCtrl'
             }
         }
     });
