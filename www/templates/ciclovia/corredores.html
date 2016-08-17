@@ -1,0 +1,32 @@
+﻿<ion-view>
+    <ion-nav-title>
+        Corredor vial
+    </ion-nav-title>
+    <ion-content>
+        <div class="list">
+		    <a class="item item-thumbnail-left" ng-click="openMapaRutas()">
+                <img src="img/mapa_ciclovia.jpg" class="circle">
+                <h2>Ruta Completa</h2>
+                <p></p>
+            </a>
+			<a ng-repeat="item in corredores" class="item item-thumbnail-left" ng-if="item.idCorredor != 0" ng-click="cargarMapa(item.idCorredor)">
+				<img src="img/corredor_{{ item.idCorredor }}.jpg" class="circle" width="100px;">
+				<h2>{{ item.nombreCorredor }}</h2>
+				<p>{{ item.descripcionCorredor }}</p>
+			</a>
+    	</div>
+    </ion-content>
+    <script id="templates/mapa.html" type="text/ng-template">
+        <ion-modal-view class="image-modal">
+            <ion-header-bar class="bar bar-header bar-stable">
+                <h1 class="title">Ruta completa</h1>
+                <button class="button button-clear button-primary" ng-click="hideMapaRutas()">Cerrar</button>
+            </ion-header-bar>
+            <ion-content scroll="false">
+                <ion-scroll direction="xy" overflow-scroll="true" scrollbar-x="false" scrollbar-y="false" zooming="true" min-zoom="1" style="width: 100%; height: 100%">
+                    <div class="image" style="background-image: url(img/mapa_ciclovia.jpg)"></div>
+                </ion-scroll> 
+            </ion-content>
+        </ion-modal-view>
+    </script>
+</ion-view>

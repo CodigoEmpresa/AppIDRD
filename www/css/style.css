@@ -1,18 +1,11 @@
 /*color idrd #02a7eb*/ 
-body.menu-open .menu.menu-left {
-    display: block;
-}
-
-.menu.menu-left {
-    display: none;
-}
 
 .menu .scroll-content {
-    background: /*url(../img/street.jpg) no-repeat -1260px -944px fixed;*/ #02a7eb;
+    background: #02a7eb;
 }
 
 .menu .bar-header {
-    background: /*url(../img/street.jpg) no-repeat -1260px -900px fixed;*/ #02a7eb;
+    background: #02a7eb;
 }
 
 .menu .bar-header h1,
@@ -64,7 +57,19 @@ body.menu-open .menu.menu-left {
     border: none !important;
 }
 
-/*Chat*/
+.circle {
+    border-radius: 50%;
+}
+
+.idrd-font-color {
+    color: #02a7eb !important;
+}
+
+.idrd-font-default {
+    color: #aaaaaa !important;
+}
+
+/*chat*/
 .bubble .avatar {
     text-align: center;
 }
@@ -103,4 +108,20 @@ body.menu-open .menu.menu-left {
 .bubble .message .col-80 p small {
     font-size: 9px;
     opacity: .7;
+}
+
+/*bicicorredores*/
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.image-modal .image {
+    width: 100%;
+    height: 600px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center, center;
 }
