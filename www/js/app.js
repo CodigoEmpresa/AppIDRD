@@ -37,7 +37,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+    $ionicConfigProvider.scrolling.jsScrolling(false);
     $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
         var key, result = [];

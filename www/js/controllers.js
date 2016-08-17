@@ -59,7 +59,7 @@ angular.module('starter.controllers', [])
         });
     }
 
-    $scope.personas_idrd = ['6'];
+    $scope.personas_idrd = [6];
 
     $scope.enviarMensaje = function ()
     {
@@ -75,10 +75,28 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope) {
-    api_ciclovia.obtenerCorredores().then(function (corredores) {
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $ionicModal) {
+    
+    $ionicModal.fromTemplateUrl('templates/mapa.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalRutas = modal;
+    });
+
+    api_ciclovia.obtenerCorredores().then(function (corredores) 
+    {
         $scope.corredores = corredores;
     });
+
+    $scope.openMapaRutas = function() 
+    {
+        $scope.modalRutas.show();
+    };
+
+    $scope.hideMapaRutas = function() 
+    {
+        $scope.modalRutas.hide();
+    };
 });
 
 /*
