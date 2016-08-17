@@ -59,7 +59,7 @@ angular.module('starter.controllers', [])
         });
     }
 
-    $scope.personas_idrd = ['6'];
+    $scope.personas_idrd = [6];
 
     $scope.enviarMensaje = function ()
     {
@@ -75,26 +75,49 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('MapaCtrl', function ($rootScope, $scope) {
-
-    var map,
-        vm = $scope,
-        root = $rootScope,
-        div = document.getElementById("mapa");
-
-    map = plugin.google.maps.Map.getMap(div);
-
-    map.setOptions({
-        mapType: plugin.google.maps.MapTypeId.ROADMAP,
-        controls: {
-            compass: true,
-            myLocationButton: true
-        },
-        gestures: {
-            scroll: true,
-            tilt: true,
-            rotate: true,
-            zoom: true
-        }
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $ionicModal) {
+    
+    $ionicModal.fromTemplateUrl('templates/mapa.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalRutas = modal;
     });
+
+    api_ciclovia.obtenerCorredores().then(function (corredores) 
+    {
+        $scope.corredores = corredores;
+    });
+
+    $scope.openMapaRutas = function() 
+    {
+        $scope.modalRutas.show();
+    };
+
+    $scope.hideMapaRutas = function() 
+    {
+        $scope.modalRutas.hide();
+    };
 });
+
+/*
+ var map,
+    vm = $scope,
+    root = $rootScope,
+    div = document.getElementById("mapa");
+
+map = plugin.google.maps.Map.getMap(div);
+
+map.setOptions({
+    mapType: plugin.google.maps.MapTypeId.ROADMAP,
+    controls: {
+        compass: true,
+        myLocationButton: true
+    },
+    gestures: {
+        scroll: true,
+        tilt: true,
+        rotate: true,
+        zoom: true
+    }
+});
+*/

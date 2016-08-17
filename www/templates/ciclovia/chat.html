@@ -3,13 +3,12 @@
         Chat
     </ion-nav-title>
     <ion-content>
-
         <div class="bubble" ng-repeat="item in messages">
             <div ng-class="{'message': true, 'idrd': personas_idrd.indexOf(item.idPersona) > -1 }">
                 <div ng-if="personas_idrd.indexOf(item.idPersona) < 0" class="row">
                     <div class="col col-20 col-top">
                         <div class="avatar">
-                            <img src="http://www.e-eso.net/img/speakers/no-photo.png">
+                            <img src="img/no-photo.png">
                         </div>
                     </div>
                     <div class="col col-80">
@@ -30,7 +29,7 @@
                     </div>
                     <div class="col col-20 col-top">
                         <div class="avatar">
-                            <img src="https://pbs.twimg.com/profile_images/468487228763549697/XbjG1kEL.jpeg">
+                            <img src="img/ciclovia.jpg">
                         </div>
                     </div>
                 </div>
@@ -41,7 +40,7 @@
         <label class="item-input-wrapper">
             <input type="text" placeholder="Mensaje" ng-model="message">
         </label>
-        <button class="button button-clear" ng-click="enviarMensaje()">
+        <button class="button button-clear idrd-font-default" ng-click="enviarMensaje()">
             <i class="ion-paper-airplane"></i>
         </button>
     </ion-footer-bar>
