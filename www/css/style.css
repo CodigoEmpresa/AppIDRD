@@ -2,6 +2,7 @@
 
 .menu .scroll-content {
     background: #02a7eb;
+    overflow-y: auto;
 }
 
 .menu .bar-header {
