@@ -9,7 +9,7 @@
                 <h2>Ruta Completa</h2>
                 <p></p>
             </a>
-			<a ng-repeat="item in corredores" class="item item-thumbnail-left" ng-if="item.idCorredor != 0" ng-click="cargarMapa(item.idCorredor)">
+			<a ng-repeat="item in corredores" class="item item-thumbnail-left" ng-if="item.idCorredor != 0" ng-click="openMapaBicicorredor(item.idCorredor)">
 				<img src="img/corredor_{{ item.idCorredor }}.jpg" class="circle" width="100px;">
 				<h2>{{ item.nombreCorredor }}</h2>
 				<p>{{ item.descripcionCorredor }}</p>
@@ -17,13 +17,24 @@
     	</div>
     </ion-content>
     <script id="templates/mapa.html" type="text/ng-template">
-        <ion-modal-view class="image-modal">
+        <ion-modal-view>
             <ion-header-bar class="bar bar-header bar-stable">
                 <h1 class="title">Ruta completa</h1>
                 <button class="button button-clear button-primary" ng-click="hideMapaRutas()">Cerrar</button>
             </ion-header-bar>
-            <ion-content scroll="false">
+            <ion-content>
                 <img src="img/mapa_ciclovia.jpg" alt="" width="100%">
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <script id="templates/bicicorredor.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header bar-stable">
+                <h1 class="title">{{bicicorredor}}</h1>
+                <button class="button button-clear button-primary" ng-click="hideMapaBicicorredor()">Cerrar</button>
+            </ion-header-bar>
+            <ion-content scroll="false">
+                <div id="mapa" style="width:100%; height:100%; background-color:#000 !important;"></div>
             </ion-content>
         </ion-modal-view>
     </script>

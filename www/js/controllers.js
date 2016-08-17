@@ -76,11 +76,34 @@ angular.module('starter.controllers', [])
 })
 
 .controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $ionicModal) {
-    
+
+    var map, vm = $scope, root = $rootScope,
+    div = document.getElementById("mapa");
+    map = plugin.google.maps.Map.getMap(div);
+    map.setOptions({
+        mapType: plugin.google.maps.MapTypeId.ROADMAP,
+        controls: {
+            compass: true,
+            myLocationButton: true
+        },
+        gestures: {
+            scroll: true,
+            tilt: true,
+            rotate: true,
+            zoom: true
+        }
+    });
+
     $ionicModal.fromTemplateUrl('templates/mapa.html', {
         scope: $scope
     }).then(function(modal) {
         $scope.modalRutas = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/bicicorredor.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalBicicorredor = modal;
     });
 
     api_ciclovia.obtenerCorredores().then(function (corredores) 
@@ -96,6 +119,16 @@ angular.module('starter.controllers', [])
     $scope.hideMapaRutas = function() 
     {
         $scope.modalRutas.hide();
+    };
+
+    $scope.openMapaBicicorredor = function(bicicorredor)
+    {
+        $scope.modalBicicorredor.show();
+    };
+
+    $scope.hideMapaBicicorredor = function(bicicorredor)
+    {
+        $scope.modalBicicorredor.hide();
     };
 });
 
