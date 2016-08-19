@@ -30,11 +30,13 @@
     <script id="templates/bicicorredor.html" type="text/ng-template">
         <ion-modal-view>
             <ion-header-bar class="bar bar-header bar-stable">
-                <h1 class="title">{{bicicorredor}}</h1>
+                <h1 class="title">{{ corredor }}</h1>
                 <button class="button button-clear button-primary" ng-click="hideMapaBicicorredor()">Cerrar</button>
             </ion-header-bar>
             <ion-content scroll="false">
-                <div id="mapa" style="width:100%; height:100%; background-color:#000 !important;"></div>
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                     <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible' static="true"></ui-gmap-polyline>
+                </ui-gmap-google-map>
             </ion-content>
         </ion-modal-view>
     </script>
