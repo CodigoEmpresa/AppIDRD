@@ -133,6 +133,16 @@
             ).then(function(result) {
                 return result.data;
             });
+        },
+        rutaCorredor: function(id_corredor) {
+            return $http.post(
+                url+'bicicorredores/geo',
+                {
+                    idCorredor: id_corredor
+                }
+            ).then(function(result) {
+                return result.data;
+            });
         }
     }
 })

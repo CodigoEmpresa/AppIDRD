@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var db;
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ngStorage'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ngStorage', 'uiGmapgoogle-maps'])
 
 .run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
     $ionicPlatform.ready(function() {
@@ -37,8 +37,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 })
 
-.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
-    $ionicConfigProvider.scrolling.jsScrolling(false);
+.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyAt1yARIqwccjiqd8xr13oY1IKbR4-wdCQ',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'geometry,visualization'
+    });
     $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
         var key, result = [];
