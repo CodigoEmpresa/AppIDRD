@@ -77,7 +77,7 @@ angular.module('starter.controllers', [])
 
 .controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $ionicModal, $filter, uiGmapGoogleMapApi) {
 
-    $scope.map = {center: { latitude: 45, longitude: -73 }, zoom: 8};
+    $scope.map = {center: { latitude: 4.720584, longitude: -74.074974 }, zoom: 13};
     $scope.polylines = [];
 
     uiGmapGoogleMapApi.then(function(maps) 
@@ -115,6 +115,7 @@ angular.module('starter.controllers', [])
     $scope.openMapaBicicorredor = function(bicicorredor)
     {
         $scope.polylines = [];
+       
         var corredor = $filter('filter')($scope.corredores, function(o){
             return o.idCorredor == bicicorredor;
         })[0];
@@ -124,7 +125,7 @@ angular.module('starter.controllers', [])
             path: [],
             stroke: {
                 color: '#02A7EB',
-                weight: 3
+                weight: 2
             }
         }
 
