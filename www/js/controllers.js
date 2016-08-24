@@ -75,14 +75,19 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $ionicModal, $filter, uiGmapGoogleMapApi) {
-
-    $scope.map = {center: { latitude: 4.720584, longitude: -74.074974 }, zoom: 13};
-    $scope.polylines = [];
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $timeout, $ionicModal, $filter, uiGmapGoogleMapApi) {
 
     uiGmapGoogleMapApi.then(function(maps) 
     {
-
+        $scope.map = {
+            center: { latitude: 4.720584, longitude: -74.074974 }, 
+            zoom: 12,
+            control: {},
+            options: {
+                 streetViewControl: false
+            }
+        };
+        $scope.polylines = [];
     });
 
     $ionicModal.fromTemplateUrl('templates/mapa.html', {
@@ -113,7 +118,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.openMapaBicicorredor = function(bicicorredor)
-    {
+    {   
         $scope.polylines = [];
        
         var corredor = $filter('filter')($scope.corredores, function(o){
@@ -139,10 +144,17 @@ angular.module('starter.controllers', [])
             });
 
             $scope.corredor = corredor.nombreCorredor;
-            $scope.map = {center: {latitude: corredor.latitud, longitude: corredor.longitud}, zoom: corredor.zoom};
+            
+            $scope.map.center.latitude = corredor.latitud;
+            $scope.map.center.longitude =  corredor.longitud;
             $scope.polylines.push(linea);
+            $scope.showMap = false;
+            $timeout(function() {
+                $scope.showMap = true;
+            });
+            
             $scope.modalBicicorredor.show();
-        });        
+        });
     };
 
     $scope.hideMapaBicicorredor = function(bicicorredor)
