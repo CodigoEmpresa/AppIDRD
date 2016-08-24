@@ -143,6 +143,16 @@
             ).then(function(result) {
                 return result.data;
             });
+        },
+        puntosCorredor: function() {
+            return $http.post(
+                url+'bicicorredores/puntos',
+                {
+                    idCorredor: id_corredor
+                }
+            ).then(function(result) {
+                return result.data;
+            });
         }
     }
 })

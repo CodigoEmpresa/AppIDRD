@@ -84,10 +84,13 @@ angular.module('starter.controllers', [])
             zoom: 12,
             control: {},
             options: {
-                 streetViewControl: false
+                 streetViewControl: false,
+                 zoomControl: false,
+                 mapTypeControl: false,
             }
         };
         $scope.polylines = [];
+        $scope.markers = [];
     });
 
     $ionicModal.fromTemplateUrl('templates/mapa.html', {
@@ -119,7 +122,9 @@ angular.module('starter.controllers', [])
 
     $scope.openMapaBicicorredor = function(bicicorredor)
     {   
+        $scope.modalBicicorredor.show();
         $scope.polylines = [];
+        $scope.markers = [];
        
         var corredor = $filter('filter')($scope.corredores, function(o){
             return o.idCorredor == bicicorredor;
@@ -132,29 +137,27 @@ angular.module('starter.controllers', [])
                 color: '#02A7EB',
                 weight: 2
             }
-        }
+        };
 
-        api_ciclovia.rutaCorredor(bicicorredor).then(function(coordenadas)
-        {
-            angular.forEach(coordenadas, function(value, key){
-                linea.path.push({
-                    latitude: value.latitud,
-                    longitude: value.longitud
-                });
+        angular.forEach(corredor.geolocalizacion, function(value, key){
+            linea.path.push({
+                latitude: value.latitud,
+                longitude: value.longitud
             });
-
-            $scope.corredor = corredor.nombreCorredor;
-            
-            $scope.map.center.latitude = corredor.latitud;
-            $scope.map.center.longitude =  corredor.longitud;
-            $scope.polylines.push(linea);
-            $scope.showMap = false;
-            $timeout(function() {
-                $scope.showMap = true;
-            });
-            
-            $scope.modalBicicorredor.show();
         });
+
+        angular.forEach(corredor.puntos, function(value, key){
+            $scope.markers.push(value);
+        });
+
+        $scope.corredor = corredor.nombreCorredor;
+        $scope.map.center.latitude = corredor.latitud;
+        $scope.map.center.longitude =  corredor.longitud;
+        $scope.polylines.push(linea);
+        $scope.showMap = false;
+        $timeout(function() {
+            $scope.showMap = true;
+        }, 0);
     };
 
     $scope.hideMapaBicicorredor = function(bicicorredor)
