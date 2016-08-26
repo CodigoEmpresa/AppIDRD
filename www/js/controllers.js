@@ -85,8 +85,9 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter, $ionicModal) {
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter) {
 
+    var BOGOTA = new plugin.google.maps.LatLng(4.666575, -74.125786);
     var map, vm = $scope, root = $rootScope,
     div = document.getElementById("mapa");
     map = plugin.google.maps.Map.getMap(div);
@@ -103,17 +104,17 @@ angular.module('starter.controllers', [])
             zoom: true
         }
     });
+    $scope.corredor = "1";
 
     map.addEventListener(plugin.google.maps.event.MAP_READY, function()
     {
-        var BOGOTA = new plugin.google.maps.LatLng(4.666575, -74.125786);
         map.setCenter(BOGOTA);
         map.animateCamera({
           'target': BOGOTA,
           'tilt': 60,
           'zoom': 11,
           'bearing': 140,
-          'duration': 5000
+          'duration': 3000
         });
 
         api_ciclovia.obtenerCorredores().then(function(corredores)  
@@ -125,9 +126,9 @@ angular.module('starter.controllers', [])
                 angular.forEach(corredor.geolocalizacion, function(punto, key) {
                     points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
                 });
-                corredor.polyline = map.addPolyline({
+                map.addPolyline({
                     'points': points,
-                    'color' : "blue",
+                    'color' : "#02A7EB",
                     'width': 2,
                     'geodesic': true
                 });
@@ -135,27 +136,56 @@ angular.module('starter.controllers', [])
         });
     });
 
-    $scope.enfocarCorredor = function()
+    $scope.enfocar = function(corredor)
     {
-        console.log($scope.corredor);
-        if ($scope.corredor > 0)
+        if(corredor.idCorredor > 0)
         {
-            var corredor = $filter('filter')($scope.corredores, {idCorredor: $scope.corredor})[0];
-            console.log(corredor);
+            var points = [];
+            map.animateCamera({
+              'target': new plugin.google.maps.LatLng(corredor.latitud, corredor.longitud),
+              'tilt': 60,
+              'zoom': 12,
+              'bearing': corredor.bearing,
+              'duration': 3000
+            });
+
+            map.clear();
+            angular.forEach(corredor.geolocalizacion, function(punto, key) {
+                points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
+            });
+
+            map.addPolyline({
+                'points': points,
+                'color' : "#02A7EB",
+                'width': 2,
+                'geodesic': true
+            });
         } else {
+            map.setCenter(BOGOTA);
+            map.animateCamera({
+              'target': BOGOTA,
+              'tilt': 60,
+              'zoom': 11,
+              'bearing': 140,
+              'duration': 3000
+            });
 
+            map.clear();
+            angular.forEach($scope.corredores, function(corredor, key) {
+                var points = [];
+
+                angular.forEach(corredor.geolocalizacion, function(punto, key) {
+                    points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
+                });
+
+                map.addPolyline({
+                    'points': points,
+                    'color' : "#02A7EB",
+                    'width': 2,
+                    'geodesic': true
+                });
+            });
         }
-    }
-
-    $scope.alerta = function(){
-        var MOSQUERA = new plugin.google.maps.LatLng(4.70603, -74.23010);
-        map.animateCamera({
-          'target': MOSQUERA,
-          'tilt': 60,
-          'zoom': 11,
-          'bearing': 140,
-          'duration': 5000
-        });
     }
 });
 
