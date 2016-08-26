@@ -1,4 +1,15 @@
 angular.module('starter.controllers', [])
+.controller('MenuCtrl', function($scope, $ionicSideMenuDelegate){
+    $scope.$watch(function () {
+        return $ionicSideMenuDelegate.getOpenRatio();
+    }, function (newValue, oldValue) {
+        if (newValue == 0) {
+            $scope.hideLeft = true;
+        } else {
+            $scope.hideLeft = false;
+        }
+    });
+})
 .controller('InicioCtrl', function (api_ciclovia, $scope, $state, $rootScope, $ionicHistory, Usuario, STORAGE) {
     $ionicHistory.nextViewOptions({
         disableBack: true
@@ -21,7 +32,6 @@ angular.module('starter.controllers', [])
         });
     })();
 })
-
 .controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario) {
 
     $ionicHistory.nextViewOptions({
@@ -75,7 +85,7 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $ionicModal) {
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter, $ionicModal) {
 
     var map, vm = $scope, root = $rootScope,
     div = document.getElementById("mapa");
@@ -94,42 +104,59 @@ angular.module('starter.controllers', [])
         }
     });
 
-    $ionicModal.fromTemplateUrl('templates/mapa.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.modalRutas = modal;
+    map.addEventListener(plugin.google.maps.event.MAP_READY, function()
+    {
+        var BOGOTA = new plugin.google.maps.LatLng(4.666575, -74.125786);
+        map.setCenter(BOGOTA);
+        map.animateCamera({
+          'target': BOGOTA,
+          'tilt': 60,
+          'zoom': 11,
+          'bearing': 140,
+          'duration': 5000
+        });
+
+        api_ciclovia.obtenerCorredores().then(function(corredores)  
+        { 
+            $scope.corredores = corredores;
+            angular.forEach(corredores, function(corredor, key) {
+                var points = [];
+
+                angular.forEach(corredor.geolocalizacion, function(punto, key) {
+                    points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
+                });
+                corredor.polyline = map.addPolyline({
+                    'points': points,
+                    'color' : "blue",
+                    'width': 2,
+                    'geodesic': true
+                });
+            });
+        });
     });
 
-    $ionicModal.fromTemplateUrl('templates/bicicorredor.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.modalBicicorredor = modal;
-    });
-
-    api_ciclovia.obtenerCorredores().then(function (corredores) 
+    $scope.enfocarCorredor = function()
     {
-        $scope.corredores = corredores;
-    });
+        console.log($scope.corredor);
+        if ($scope.corredor > 0)
+        {
+            var corredor = $filter('filter')($scope.corredores, {idCorredor: $scope.corredor})[0];
+            console.log(corredor);
+        } else {
 
-    $scope.openMapaRutas = function() 
-    {
-        $scope.modalRutas.show();
-    };
+        }
+    }
 
-    $scope.hideMapaRutas = function() 
-    {
-        $scope.modalRutas.hide();
-    };
-
-    $scope.openMapaBicicorredor = function(bicicorredor)
-    {
-        $scope.modalBicicorredor.show();
-    };
-
-    $scope.hideMapaBicicorredor = function(bicicorredor)
-    {
-        $scope.modalBicicorredor.hide();
-    };
+    $scope.alerta = function(){
+        var MOSQUERA = new plugin.google.maps.LatLng(4.70603, -74.23010);
+        map.animateCamera({
+          'target': MOSQUERA,
+          'tilt': 60,
+          'zoom': 11,
+          'bearing': 140,
+          'duration': 5000
+        });
+    }
 });
 
 /*

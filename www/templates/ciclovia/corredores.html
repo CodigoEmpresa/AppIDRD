@@ -2,40 +2,33 @@
     <ion-nav-title>
         Corredor vial
     </ion-nav-title>
-    <ion-content>
-        <div class="list">
-		    <a class="item item-thumbnail-left" ng-click="openMapaRutas()">
-                <img src="img/mapa_ciclovia.jpg" class="circle">
-                <h2>Ruta Completa</h2>
-                <p></p>
-            </a>
-			<a ng-repeat="item in corredores" class="item item-thumbnail-left" ng-if="item.idCorredor != 0" ng-click="openMapaBicicorredor(item.idCorredor)">
-				<img src="img/corredor_{{ item.idCorredor }}.jpg" class="circle" width="100px;">
-				<h2>{{ item.nombreCorredor }}</h2>
-				<p>{{ item.descripcionCorredor }}</p>
-			</a>
-    	</div>
+    <ion-content scroll="false">
+        <div id="mapa" style="width:100%; height:100%; background-color:#000 !important;">
+	    	<div class="controles-mapa">
+	    		<div class="row">
+					 <div class="col">
+					 	<label class="item item-input item-select">
+		    				<select ng-model="corredor" ng-change="enfocarCorredor()">
+								<option ng-repeat="c in corredores" value="{{ c.idCorredor }}">{{ c.nombreCorredor }}</option>
+							</select>
+						</label>
+					 </div>
+	    		</div>
+				<div class="tabs tabs-icon-top" ng-click="alerta()">
+				  <a class="tab-item">
+				    <i class="icon ion-fork"></i>
+				    Alimentos
+				  </a>
+				  <a class="tab-item">
+				    <i class="icon ion-wrench"></i>
+				    Ciclotaller
+				  </a>
+				  <a class="tab-item">
+				    <i class="icon ion-filing"></i>
+				    Accesorios
+				  </a>
+				</div>
+	    	</div>
+        </div>
     </ion-content>
-    <script id="templates/mapa.html" type="text/ng-template">
-        <ion-modal-view>
-            <ion-header-bar class="bar bar-header bar-stable">
-                <h1 class="title">Ruta completa</h1>
-                <button class="button button-clear button-primary" ng-click="hideMapaRutas()">Cerrar</button>
-            </ion-header-bar>
-            <ion-content>
-                <img src="img/mapa_ciclovia.jpg" alt="" width="100%">
-            </ion-content>
-        </ion-modal-view>
-    </script>
-    <script id="templates/bicicorredor.html" type="text/ng-template">
-        <ion-modal-view>
-            <ion-header-bar class="bar bar-header bar-stable">
-                <h1 class="title">{{bicicorredor}}</h1>
-                <button class="button button-clear button-primary" ng-click="hideMapaBicicorredor()">Cerrar</button>
-            </ion-header-bar>
-            <ion-content scroll="false">
-                <div id="mapa" style="width:100%; height:100%; background-color:#000 !important;"></div>
-            </ion-content>
-        </ion-modal-view>
-    </script>
 </ion-view>

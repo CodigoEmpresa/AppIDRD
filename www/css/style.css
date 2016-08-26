@@ -112,3 +112,37 @@
 }
 
 /*bicicorredores*/
+.controles-mapa {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 90%;
+    margin-left: 5%;
+    height: 100px;
+    background-color: rgba(255,255,255,.95);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0px 0px 7px #DDD;
+}
+
+.controles-mapa label {
+    height: 35px;
+    border: none;
+}
+
+.controles-mapa label select {
+    height: 35px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    direction: ltr;
+}
+
+.controles-mapa .tabs {
+    background-color: rgba(0,0,0,0);
+}
+
+.controles-mapa .tabs .icon {
+    font-size: 20px;
+    line-height: 32px;
+}
