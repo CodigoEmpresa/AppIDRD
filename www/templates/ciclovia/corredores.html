@@ -15,15 +15,15 @@
 					 </div>
 	    		</div>
 				<div class="tabs tabs-icon-top" ng-click="alerta()">
-				  <a class="tab-item">
+				  <a class="tab-item" ng-class="{activated: alimentos}" ng-click="touch('alimentos')">
 				    <i class="icon ion-fork"></i>
 				    Alimentos
 				  </a>
-				  <a class="tab-item">
+				  <a class="tab-item" ng-class="{activated: ciclotaller}" ng-click="touch('ciclotaller')">
 				    <i class="icon ion-wrench"></i>
 				    Ciclotaller
 				  </a>
-				  <a class="tab-item">
+				  <a class="tab-item" ng-class="{activated: accesorios}" ng-click="touch('accesorios')">
 				    <i class="icon ion-filing"></i>
 				    Accesorios
 				  </a>
