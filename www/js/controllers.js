@@ -85,7 +85,13 @@ angular.module('starter.controllers', [])
     $scope.recargar();
 })
 
-.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter) {
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter, $timeout) {
+
+    $scope.corredor;
+    $scope.corredor_actual = 0;
+    $scope.alimentos = true;
+    $scope.ciclotaller = true;
+    $scope.accesorios = true;
 
     var BOGOTA = new plugin.google.maps.LatLng(4.666575, -74.125786);
     var map, vm = $scope, root = $rootScope,
@@ -104,7 +110,6 @@ angular.module('starter.controllers', [])
             zoom: true
         }
     });
-    $scope.corredor = "1";
 
     map.addEventListener(plugin.google.maps.event.MAP_READY, function()
     {
@@ -120,57 +125,148 @@ angular.module('starter.controllers', [])
         api_ciclovia.obtenerCorredores().then(function(corredores)  
         { 
             $scope.corredores = corredores;
+            $scope.corredor = corredores[0];
+            $scope.corredor_actual = $scope.corredor.idCorredor;
+
             angular.forEach(corredores, function(corredor, key) {
                 var points = [];
+                var markers = [];
 
                 angular.forEach(corredor.geolocalizacion, function(punto, key) {
                     points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
                 });
+
+                angular.forEach(corredor.puntos, function(punto, key) {
+                    var icon = "";
+                    switch(punto.idPunto)
+                    {
+                        case 1:
+                            icon = "ic-comidas.png";
+                        break;
+                        case 2:
+                            icon = "ic-taller.png";
+                        break;
+                        case 3:
+                            icon = "ic-accesorios.png";
+                        break;
+                    }
+                    var marker = {
+                        'position':  new plugin.google.maps.LatLng(punto.latitud, punto.longitud),
+                        'icon': {
+                            'url': 'www/img/'+icon,
+                            'size': {
+                                width: 34,
+                                height: 44
+                            }
+                        },
+                        'title': punto.nombreCP,
+                        'snippet': punto.descripcionCP,
+                        'markerClick': function(marker) {
+                            marker.showInfoWindow();
+                        },
+                        'infoClick': function(marker) {
+                        }
+                    }
+                    markers.push(marker);
+                });
+
                 map.addPolyline({
                     'points': points,
                     'color' : "#02A7EB",
                     'width': 2,
                     'geodesic': true
                 });
+
+                angular.forEach(markers, function(marker, key) {
+                    $timeout(function()
+                    {
+                        map.addMarker(marker);
+                    }, 500);
+                });
             });
         });
     });
 
-    $scope.enfocar = function(corredor)
+    $scope.repaint = function()
     {
+        var points = [];
+        var markers = [];
+        var corredor = $scope.corredor;
+
+        console.log(corredor, corredor.idCorredor, $scope.corredor_actual);
+
         if(corredor.idCorredor > 0)
         {
-            var points = [];
-            map.animateCamera({
-              'target': new plugin.google.maps.LatLng(corredor.latitud, corredor.longitud),
-              'tilt': 60,
-              'zoom': 12,
-              'bearing': corredor.bearing,
-              'duration': 3000
-            });
+            if(corredor.idCorredor != $scope.corredor_actual)
+            {
+                map.animateCamera({
+                  'target': new plugin.google.maps.LatLng(corredor.latitud, corredor.longitud),
+                  'tilt': 60,
+                  'zoom': 12,
+                  'bearing': corredor.bearing,
+                  'duration': 3000
+                });
+            }
 
-            map.clear();
             angular.forEach(corredor.geolocalizacion, function(punto, key) {
                 points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
             });
 
-            map.addPolyline({
-                'points': points,
-                'color' : "#02A7EB",
-                'width': 2,
-                'geodesic': true
+            angular.forEach(corredor.puntos, function(punto, key) {
+                var icon = "";
+
+                switch(punto.idPunto)
+                {
+                    case 1:
+                        icon = "ic-comidas.png";
+                    break;
+                    case 2:
+                        icon = "ic-taller.png";
+                    break;
+                    case 3:
+                        icon = "ic-accesorios.png";
+                    break;
+                }
+
+                if(
+                    (punto.idPunto == 1 && $scope.alimentos) || 
+                    (punto.idPunto == 2 && $scope.ciclotaller) || 
+                    (punto.idPunto == 3 && $scope.accesorios)
+                )
+                {
+                    var marker = {
+                        'position':  new plugin.google.maps.LatLng(punto.latitud, punto.longitud),
+                        'icon': {
+                            'url': 'www/img/'+icon,
+                            'size': {
+                                width: 34,
+                                height: 44
+                            }
+                        },
+                        'title': punto.nombreCP,
+                        'snippet': punto.descripcionCP,
+                        'markerClick': function(marker) {
+                            marker.showInfoWindow();
+                        },
+                        'infoClick': function(marker) {
+                        }
+                    }
+                    markers.push(marker);
+                }
             });
         } else {
-            map.setCenter(BOGOTA);
-            map.animateCamera({
-              'target': BOGOTA,
-              'tilt': 60,
-              'zoom': 11,
-              'bearing': 140,
-              'duration': 3000
-            });
+            if(corredor.idCorredor != $scope.corredor_actual)
+            {
+                map.setCenter(BOGOTA);
+                map.animateCamera({
+                  'target': BOGOTA,
+                  'tilt': 60,
+                  'zoom': 11,
+                  'bearing': 140,
+                  'duration': 3000
+                });
+            }
 
-            map.clear();
             angular.forEach($scope.corredores, function(corredor, key) {
                 var points = [];
 
@@ -178,14 +274,88 @@ angular.module('starter.controllers', [])
                     points.push(new plugin.google.maps.LatLng(punto.latitud, punto.longitud));
                 });
 
-                map.addPolyline({
-                    'points': points,
-                    'color' : "#02A7EB",
-                    'width': 2,
-                    'geodesic': true
+                angular.forEach(corredor.puntos, function(punto, key) {
+                    var icon = "";
+
+                    switch(punto.idPunto)
+                    {
+                        case 1:
+                            icon = "ic-comidas.png";
+                        break;
+                        case 2:
+                            icon = "ic-taller.png";
+                        break;
+                        case 3:
+                            icon = "ic-accesorios.png";
+                        break;
+                    }
+
+                    if(
+                        (punto.idPunto == 1 && $scope.alimentos) || 
+                        (punto.idPunto == 2 && $scope.ciclotaller) || 
+                        (punto.idPunto == 3 && $scope.accesorios)
+                    )
+                    {
+                        var marker = {
+                            'position':  new plugin.google.maps.LatLng(punto.latitud, punto.longitud),
+                            'icon': {
+                                'url': 'www/img/'+icon,
+                                'size': {
+                                    width: 34,
+                                    height: 44
+                                }
+                            },
+                            'title': punto.nombreCP,
+                            'snippet': punto.descripcionCP,
+                            'markerClick': function(marker) {
+                                marker.showInfoWindow();
+                            },
+                            'infoClick': function(marker) {
+                            }
+                        }
+                        markers.push(marker);
+                    }
                 });
             });
         }
+        map.clear();
+
+        map.addPolyline({
+            'points': points,
+            'color' : "#02A7EB",
+            'width': 2,
+            'geodesic': true
+        });
+
+        angular.forEach(markers, function(marker, key) {
+            map.addMarker(marker);
+        });
+
+        $scope.corredor_actual = corredor.idCorredor;
+    }
+
+    $scope.enfocar = function(corredor)
+    {
+        $scope.corredor = corredor;
+        $scope.repaint();
+    }
+
+    $scope.touch = function(marker)
+    {
+        switch(marker)
+        {
+            case 'alimentos':
+                $scope.alimentos = !$scope.alimentos;
+            break;
+            case 'ciclotaller':
+                $scope.ciclotaller = !$scope.ciclotaller;
+            break;
+            case 'accesorios':
+                $scope.accesorios = !$scope.accesorios;
+            break;
+        }
+
+        $scope.repaint();
     }
 });
 
