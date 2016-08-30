@@ -146,3 +146,8 @@
     font-size: 20px;
     line-height: 32px;
 }
+
+.icon.activated,.icon.activated + span
+{
+  color: #02a7eb;
+}
