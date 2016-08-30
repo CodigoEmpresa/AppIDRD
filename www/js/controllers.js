@@ -254,6 +254,18 @@ angular.module('starter.controllers', [])
                     markers.push(marker);
                 }
             });
+        
+        map.clear();
+
+        map.addPolyline({
+            'points': points,
+            'color' : "#02A7EB",
+            'width': 2,
+            'geodesic': true
+        });
+
+
+
         } else {
             if(corredor.idCorredor != $scope.corredor_actual)
             {
@@ -266,6 +278,8 @@ angular.module('starter.controllers', [])
                   'duration': 3000
                 });
             }
+
+            map.clear();
 
             angular.forEach($scope.corredores, function(corredor, key) {
                 var points = [];
@@ -316,9 +330,7 @@ angular.module('starter.controllers', [])
                         markers.push(marker);
                     }
                 });
-            });
-        }
-        map.clear();
+         
 
         map.addPolyline({
             'points': points,
@@ -326,6 +338,18 @@ angular.module('starter.controllers', [])
             'width': 2,
             'geodesic': true
         });
+
+
+            });
+        }
+        /*map.clear();
+
+        map.addPolyline({
+            'points': points,
+            'color' : "#02A7EB",
+            'width': 2,
+            'geodesic': true
+        });*/
 
         angular.forEach(markers, function(marker, key) {
             map.addMarker(marker);
@@ -344,8 +368,11 @@ angular.module('starter.controllers', [])
     {
         switch(marker)
         {
+
+
             case 'alimentos':
                 $scope.alimentos = !$scope.alimentos;
+
             break;
             case 'ciclotaller':
                 $scope.ciclotaller = !$scope.ciclotaller;

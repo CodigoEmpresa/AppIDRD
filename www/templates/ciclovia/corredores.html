@@ -14,18 +14,18 @@
 						</label>
 					 </div>
 	    		</div>
-				<div class="tabs tabs-icon-top" ng-click="alerta()">
-				  <a class="tab-item" ng-class="{activated: alimentos}" ng-click="touch('alimentos')">
-				    <i class="icon ion-fork"></i>
-				    Alimentos
+				<div class="tabs tabs-icon-top" >
+				  <a class="tab-item" ng-click="touch('alimentos')">
+				    <i class="icon ion-fork"  ng-class="{'activated': alimentos}"></i>
+				    <span>Alimentos</span>
 				  </a>
-				  <a class="tab-item" ng-class="{activated: ciclotaller}" ng-click="touch('ciclotaller')">
-				    <i class="icon ion-wrench"></i>
-				    Ciclotaller
+				  <a class="tab-item" ng-click="touch('ciclotaller')">
+				    <i class="icon ion-wrench" ng-class="{'activated': ciclotaller}"></i>
+				    <span>Ciclotaller</span>
 				  </a>
-				  <a class="tab-item" ng-class="{activated: accesorios}" ng-click="touch('accesorios')">
-				    <i class="icon ion-filing"></i>
-				    Accesorios
+				  <a class="tab-item" ng-click="touch('accesorios')">
+				    <i class="icon ion-filing" ng-class="{'activated': accesorios}"></i>
+				    <span>Accesorios</span>
 				  </a>
 				</div>
 	    	</div>
