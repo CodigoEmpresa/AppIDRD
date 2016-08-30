@@ -1,9 +1,6 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="true">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
@@ -20,7 +17,7 @@
     </ion-header-bar>
     <ion-content scroll="false">
       <ion-list>
-        <ion-item menu-close class="no-border" href="#/ciclovia/noticias">
+        <ion-item menu-toggle="left" class="no-border" href="#/ciclovia/noticias">
             <div class="row">
                 <div class="col center">
                     <i class="ion-document-text"></i>
@@ -30,7 +27,7 @@
                 </div>
             </div>
         </ion-item>
-        <ion-item menu-close class="no-border" href="#/ciclovia/chat">
+        <ion-item menu-toggle="left" class="no-border" href="#/ciclovia/chat">
             <div class="row">
                 <div class="col center">
                     <i class="ion-chatboxes"></i>
@@ -40,7 +37,7 @@
                 </div>
             </div>
         </ion-item>
-        <ion-item menu-close class="no-border" href="#/ciclovia/corredores">
+        <ion-item menu-toggle="left" class="no-border" href="#/ciclovia/corredores">
             <div class="row">
                 <div class="col center">
                     <i class="ion-map"></i>
@@ -50,7 +47,7 @@
                 </div>
             </div>
         </ion-item>
-        <ion-item menu-close class="no-border" href="#/ciclovia/mapa">
+        <ion-item menu-toggle="left" class="no-border" href="#/ciclovia/mapa">
             <div class="row">
                 <div class="col center">
                     <i class="ion-pie-graph"></i>
