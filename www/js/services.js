@@ -107,6 +107,14 @@
                 return result.data;
             });
         },
+        getEvents: function () {
+            return $http.post(
+                url+'eventos/obtener',
+                {}
+            ).then(function (result) {
+                return result.data;
+            });
+        },
         getMessages: function () {
             return $http.post(
                 url+'mensajes/obtener',

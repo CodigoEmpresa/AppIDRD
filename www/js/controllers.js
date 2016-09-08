@@ -63,6 +63,10 @@ angular.module('starter.controllers', [])
     });
 })
 
+.controller('EventosCtrl', function(api_ciclovia, $scope) {
+
+})
+
 .controller('ChatCtrl', function (api_ciclovia, $scope, STORAGE) {
     var usuario = STORAGE.get('usuario');
 
@@ -232,7 +236,10 @@ angular.module('starter.controllers', [])
                 $scope.accesorios = !$scope.accesorios;
             break;
         }
-
         $scope.repaint();
     }
+})
+
+.controller('RecomendacionesCtrl', function(api_ciclovia, $scope) {
+    
 });

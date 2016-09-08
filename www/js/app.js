@@ -78,6 +78,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
     })
+    .state('ciclovia.eventos', {
+        url: '/eventos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/ciclovia/eventos.html',
+                controller: 'EventosCtrl'
+            }
+        }
+    })
     .state('ciclovia.chat', {
         url: '/chat',
         views: {
@@ -93,6 +102,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             'menuContent': {
                 templateUrl: 'templates/ciclovia/corredores.html',
                 controller: 'CorredoresCtrl'
+            }
+        }
+    })
+    .state('ciclovia.recomendaciones', {
+        url: '/recomendaciones',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/ciclovia/recomendaciones.html',
+                controller: 'RecomendacionesCtrl'
             }
         }
     });
