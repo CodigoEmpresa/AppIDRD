@@ -15,7 +15,7 @@
                         <h5>{{ item.nombre }}</h5>
                         <p>
                             {{ item.mensaje }} <br />
-                            <small>{{ item.hora }}</small>
+                            <small>{{ item.hora  | dateToISO | date: "d 'de' MMMM 'de' y | h:mm a" }}</small>
                         </p>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <h5>{{ item.nombre }}</h5>
                         <p>
                             {{ item.mensaje }} <br />
-                            <small>{{ item.hora }}</small>
+                            <small>{{ item.hora  | dateToISO | date: "d 'de' MMMM 'de' y | h:mm a" }}</small>
                         </p>
                     </div>
                     <div class="col col-20 col-top">

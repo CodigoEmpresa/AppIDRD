@@ -64,7 +64,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('EventosCtrl', function(api_ciclovia, $scope) {
-
+    api_ciclovia.getEvents().then(function (events) {
+        $scope.events = events;
+    });
 })
 
 .controller('ChatCtrl', function (api_ciclovia, $scope, STORAGE) {

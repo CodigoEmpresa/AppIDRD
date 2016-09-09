@@ -3,6 +3,26 @@
         Eventos
     </ion-nav-title>
     <ion-content>
-    	...
+    	<div class="fecha" ng-repeat="(key, value) in events">
+    		<div class="skew">
+    			<h4>{{ key  | dateToISO | date: "EEEE, d 'de' MMMM 'de' y"}}</h4>
+    		</div>
+    		<div class="card" ng-repeat="item in value">
+	            <div class="item item-avatar">
+	                <img src="img/ciclovia.jpg">
+	                <h2>{{ item.titulo }}</h2>
+	                <p>De {{ item.fechaInicio  | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin  | dateToISO | date: 'h:mm a' }}</p>
+	            </div>
+	            <div class="item item-image" ng-if="item.imgEvento != ''">
+	                <img class="card-image" src="{{ item.imgEvento }}" />
+	            </div>
+	            <div class="item item-body">
+	                <p> {{ item.descripcion }} </p>
+	                <p ng-if="item.link">
+	                    <a ng-href="{{ item.link }}" onclick="window.open(this.href, '_system', 'location=no'); return false;" class="subdued">Ver mas</a>
+	                </p>
+	            </div>
+	        </div>
+    	</div>
     </ion-content>
 </ion-view>

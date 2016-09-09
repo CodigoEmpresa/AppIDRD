@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var db;
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ngStorage'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ngCordova', 'ngStorage'])
 
 .run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
     $ionicPlatform.ready(function() {

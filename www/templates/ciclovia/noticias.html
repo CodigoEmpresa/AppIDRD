@@ -7,7 +7,7 @@
             <div class="item item-avatar">
                 <img src="img/ciclovia.jpg">
                 <h2>{{ item.titulo }}</h2>
-                <p>{{ item.hora }}</p>
+                <p>{{ item.hora | dateToISO | date: "EEEE, d 'de' MMMM 'de' y" }}</p>
             </div>
             <div class="item item-image" ng-if="item.imgNoticia != 'NO'">
                 <img class="card-image" src="{{ item.imgNoticia }}" />

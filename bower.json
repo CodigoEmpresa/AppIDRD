@@ -10,6 +10,7 @@
     "ngCordova": "^0.1.27-alpha",
     "ngstorage": "^0.3.10",
     "angular-google-maps": "^2.3.4",
-    "lodash": "^4.15.0"
+    "lodash": "^4.15.0",
+    "angular-i18n": "^1.5.8"
   }
 }

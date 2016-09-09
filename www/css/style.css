@@ -109,6 +109,19 @@
     opacity: .7;
 }
 
+/*eventos*/
+
+.skew {
+    background-color: rgb(247, 247, 247);
+    text-align: left;
+    padding-left: 19px;
+    margin: 10px 9px -17px 9px;
+}
+
+.skew h4 {
+    color: #00A8D0;
+}
+
 /*bicicorredores*/
 .controles-mapa {
     position: absolute;
