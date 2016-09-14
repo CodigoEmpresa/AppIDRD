@@ -36,7 +36,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario) {
-
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
@@ -57,24 +56,32 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('NoticiasCtrl', function (api_ciclovia, $scope) {
+.controller('NoticiasCtrl', function (api_ciclovia, $scope, $ionicLoading) {
+    $ionicLoading.show();
+
     api_ciclovia.getNews().then(function (news) {
         $scope.news = news;
+        $ionicLoading.hide();
     });
 })
 
-.controller('EventosCtrl', function(api_ciclovia, $scope) {
+.controller('EventosCtrl', function(api_ciclovia, $scope, $ionicLoading) {
+    $ionicLoading.show();
+
     api_ciclovia.getEvents().then(function (events) {
         $scope.events = events;
+        $ionicLoading.hide();
     });
 })
 
-.controller('ChatCtrl', function (api_ciclovia, $scope, STORAGE) {
+.controller('ChatCtrl', function (api_ciclovia, $scope, $ionicLoading, STORAGE) {
+    $ionicLoading.show();
     var usuario = STORAGE.get('usuario');
 
     $scope.recargar = function () {
         api_ciclovia.getMessages().then(function (messages) {
             $scope.messages = messages;
+            $ionicLoading.hide();
         });
     }
 
@@ -85,6 +92,7 @@ angular.module('starter.controllers', [])
         if ($scope.message.trim() != '')
         {
             api_ciclovia.sendMessage($scope.message.trim(), usuario.id_persona).then(function (result) {
+                $ionicLoading.show();
                 $scope.recargar();
                 $scope.message = '';
             });
@@ -242,6 +250,13 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('RecomendacionesCtrl', function(api_ciclovia, $scope) {
-    
+.controller('RecomendacionesCtrl', function(api_ciclovia, $scope, $ionicLoading) {
+    $ionicLoading.show();
+
+    api_ciclovia.getRecommendations().then(function (items) {
+        $scope.items = items;
+        $ionicLoading.hide();
+    });
+
+    $scope.items = [];
 });

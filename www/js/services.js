@@ -115,6 +115,14 @@
                 return result.data;
             });
         },
+        getRecommendations: function () {
+            return $http.post(
+                url+'recomendaciones/obtener',
+                {}
+            ).then(function (result) {
+                return result.data;
+            });
+        },
         getMessages: function () {
             return $http.post(
                 url+'mensajes/obtener',

@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var db;
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ngCordova', 'ngStorage'])
+angular.module('starter', ['ionic', 'ion-gallery', 'starter.controllers', 'starter.services', 'starter.filters', 'ngCordova', 'ngStorage'])
 
 .run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
     $ionicPlatform.ready(function() {
@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 })
 
-.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, ionGalleryConfigProvider) {
     $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
         var key, result = [];
@@ -51,6 +51,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
         return result.join("&");
     });
+
+    ionGalleryConfigProvider.setGalleryConfig({
+        action_label: 'Close',
+        template_gallery: 'gallery.html',
+        template_slider: 'slider.html',
+        toggle: false,
+        row_size: 3,
+        fixed_row_size: true
+    });
+
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
     $stateProvider
