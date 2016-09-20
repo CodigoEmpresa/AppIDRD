@@ -12,6 +12,27 @@ angular.module('starter.controllers', [])
     });
 })
 
+.controller('MediaCtrl', function($scope, $timeout, $cordovaNativeAudio, $ionicPlatform) {
+
+    $scope.play = function() 
+    {
+        $scope.status = true;
+        $cordovaNativeAudio.preloadComplex('cancion', ($ionicPlatform.is('android') ? '' : '') + 'media/ciclovia.mp3', 1, 1)
+            .then(function (msg) {
+                $cordovaNativeAudio.play('cancion');
+            }, function (error) {
+                console.error(error);
+            });
+    }
+
+    $scope.stop = function() 
+    {
+        $scope.status = false;
+        $cordovaNativeAudio.stop('cancion');
+        $cordovaNativeAudio.unload('cancion');
+    }
+})
+
 .controller('InicioCtrl', function (api_ciclovia, $scope, $state, $rootScope, $ionicHistory, Usuario, STORAGE) {
     $ionicHistory.nextViewOptions({
         disableBack: true

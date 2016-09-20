@@ -69,11 +69,13 @@
         </ion-item>
       </ion-list>
     </ion-content>
-  <div class="social-networks">
+  <div ng-controller="MediaCtrl" class="social-networks">
       <span>Síguenos en:</span> 
       <a href="https://www.facebook.com/CicloviaBogotaIDRD" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-facebook.png" alt="" height="30px"></a>&nbsp;
       <a href="https://twitter.com/CicloviaBogota" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-twitter.png" alt="" height="30px"></a>&nbsp;
-      <a href="https://www.youtube.com/user/cicloviaforo" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-youtube.png" alt="" height="30px"></a>
+      <!--<a href="https://www.youtube.com/user/cicloviaforo" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-youtube.png" alt="" height="30px"></a>-->
+      <a href ng-click="play()" ng-if="!status"><img src="img/ic-song.png" alt="" height="30px"></a>
+      <a href ng-click="stop()" ng-if="status"><img src="img/ic-stop.png" alt="" height="30px"></a>
   </div>
   </ion-side-menu>
 </ion-side-menus>
