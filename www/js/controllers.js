@@ -12,30 +12,24 @@ angular.module('starter.controllers', [])
     });
 })
 
-.controller('MediaCtrl', function($scope, $timeout, $cordovaMedia, $ionicPlatform) {
-
-    $scope.status = false;
-    var media;
-
-    $ionicPlatform.ready(function()
-    {
-        var src = ($ionicPlatform.is('android') ? '/android_asset/www' : '') + '/media/ciclovia.mp3';
-        media = $cordovaMedia.newMedia(src);
-    });
+.controller('MediaCtrl', function($scope, $timeout, $cordovaNativeAudio, $ionicPlatform) {
 
     $scope.play = function() 
     {
-        media.play();
         $scope.status = true;
-        console.log(media, $scope);
+        $cordovaNativeAudio.preloadComplex('cancion', ($ionicPlatform.is('android') ? '' : '') + 'media/ciclovia.mp3', 1, 1)
+            .then(function (msg) {
+                $cordovaNativeAudio.play('cancion');
+            }, function (error) {
+                console.error(error);
+            });
     }
 
     $scope.stop = function() 
     {
-
-        media.stop();
         $scope.status = false;
-        console.log(media, $scope);
+        $cordovaNativeAudio.stop('cancion');
+        $cordovaNativeAudio.unload('cancion');
     }
 })
 
