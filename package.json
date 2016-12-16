@@ -1,7 +1,7 @@
 {
-  "name": "idrd",
+  "name": "Ciclovia",
   "version": "1.1.1",
-  "description": "IDRD: An Ionic project",
+  "description": "Aplicación oficial ciclovia IDRD",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -23,11 +23,15 @@
     "ionic-plugin-keyboard",
     {
       "variables": {
-        "API_KEY_FOR_ANDROID": "AIzaSyAvuPj27RkxmwWHP6ao-AqzM7UCcaWQagY",
-        "API_KEY_FOR_IOS": "AIzaSyB1cxmk_zoRf2a31PvNJhhRzDsagXdfg2g"
+        "API_KEY_FOR_ANDROID": "AIzaSyBEDqypbnddQpEvBjn7trL_c_zfeOq7-D8",
+        "API_KEY_FOR_IOS": "AIzaSyD1vOKok-SASj6Y1rleIcR_76_TYWo0WU8"
       },
       "locator": "cordova-plugin-googlemaps",
       "id": "plugin.google.maps"
+    },
+    {
+      "locator": "https://github.com/SidneyS/cordova-plugin-nativeaudio.git",
+      "id": "cordova-plugin-nativeaudio"
     },
     "cordova-plugin-inappbrowser",
     "cordova-plugin-geolocation",
@@ -35,6 +39,7 @@
     "cordova-plugin-crosswalk-webview"
   ],
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ]
 }
