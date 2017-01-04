@@ -33,27 +33,42 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('InicioCtrl', function (api_ciclovia, $scope, $state, $rootScope, $ionicHistory, Usuario, STORAGE) {
+.controller('InicioCtrl', function (api_ciclovia, $scope, $state, $rootScope, $cordovaNetwork, $ionicHistory, Usuario, STORAGE) {
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
 
-    (function (){
-        Usuario.all().then(function (data) {
-            if (data.length > 0)
+    document.addEventListener("deviceready", function () {
+        (function () {
+            $scope.type = '', $scope.isOnline = false;
+            
+            $scope.login = function()
             {
-                api_ciclovia.obtenerIdUsuario(data[0].identificacion).then(function (idPersona) {
-                    $state.go('ciclovia.noticias');
-                    data[0].id_persona = parseInt(idPersona);
+                $scope.type = $cordovaNetwork.getNetwork();
+                $scope.isOnline = $cordovaNetwork.isOnline();
+                if ($scope.isOnline)
+                {
+                    Usuario.all().then(function (data) {
+                        if (data.length > 0)
+                        {
+                            api_ciclovia.obtenerIdUsuario(data[0].identificacion).then(function (idPersona) {
+                                $state.go('ciclovia.noticias');
+                                data[0].id_persona = parseInt(idPersona);
 
-                    STORAGE.set('usuario', data[0]);
-                });
-                
-            } else {
-                $state.go('registro');
-            }
-        });
-    })();
+                                STORAGE.set('usuario', data[0]);
+                            });
+                            
+                        } else {
+                            $state.go('registro');
+                        }
+                    });
+                } else {
+
+                }
+            };
+            $scope.login();
+        })();
+    });
 })
 
 .controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario) {
@@ -77,13 +92,29 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('NoticiasCtrl', function (api_ciclovia, $scope, $ionicLoading) {
+.controller('NoticiasCtrl', function (api_ciclovia, $scope, $ionicLoading, Utils) {
     $ionicLoading.show();
 
     api_ciclovia.getNews().then(function (news) {
+        angular.forEach(news, function(n, key) {
+            Utils.isImage(n.imgNoticia).then(function(res){
+                if (!res)
+                {
+                    n.imgNoticia = 'NO';
+                }
+            });
+        });
+
         $scope.news = news;
         $ionicLoading.hide();
     });
+
+    $scope.imageExists = function(src)
+    {
+        var result = Utils.isImage(src).then(function(result) {
+            $scope.result = result;
+        });
+    }
 })
 
 .controller('EventosCtrl', function(api_ciclovia, $scope, $ionicLoading) {
@@ -106,7 +137,7 @@ angular.module('starter.controllers', [])
         });
     }
 
-    $scope.personas_idrd = [6];
+    $scope.personas_idrd = [0, 6, 2044];
 
     $scope.enviarMensaje = function ()
     {

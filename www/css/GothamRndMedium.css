@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'GothamRndMedium';
+    src: url('fonts/GothamRndMedium.eot');
+    src: url('fonts/GothamRndMedium.eot') format('embedded-opentype'),
+         url('fonts/GothamRndMedium.woff2') format('woff2'),
+         url('fonts/GothamRndMedium.woff') format('woff'),
+         url('fonts/GothamRndMedium.ttf') format('truetype'),
+         url('fonts/GothamRndMedium.svg#GothamRndMedium') format('svg');
+}

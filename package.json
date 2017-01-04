@@ -36,6 +36,7 @@
     "cordova-plugin-inappbrowser",
     "cordova-plugin-geolocation",
     "cordova-sqlite-storage",
+    "cordova-plugin-network-information",
     "cordova-plugin-crosswalk-webview"
   ],
   "cordovaPlatforms": [

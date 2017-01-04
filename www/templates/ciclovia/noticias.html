@@ -10,7 +10,7 @@
                 <p>{{ item.hora | dateToISO | date: "EEEE, d 'de' MMMM 'de' y" }}</p>
             </div>
             <div class="item item-image" ng-if="item.imgNoticia != 'NO'">
-                <img class="card-image" src="{{ item.imgNoticia }}" />
+                <img class="card-image" ng-src="{{ item.imgNoticia }}" />
             </div>
             <div class="item item-body">
                 <p> {{ item.descripcion }} </p>

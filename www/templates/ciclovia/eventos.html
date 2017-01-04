@@ -3,7 +3,7 @@
         Eventos
     </ion-nav-title>
     <ion-content>
-    	<div class="fecha" ng-repeat="(key, value) in events">
+    	<div class="fecha" ng-repeat="(key, value) in events" ng-if="events.length > 0">
     		<div class="skew">
     			<h4>{{ key  | dateToISO | date: "EEEE, d 'de' MMMM 'de' y"}}</h4>
     		</div>
@@ -23,6 +23,15 @@
 	                </p>
 	            </div>
 	        </div>
+    	</div>
+    	<div ng-if="events.length == 0">
+    		<div class="row">
+    			<div class="col">
+		    		<h5 class="positive" style="text-align:center;">
+		    			No se han registrado eventos en los próximos días.
+		    		</h5>
+    			</div>
+    		</div>
     	</div>
     </ion-content>
 </ion-view>

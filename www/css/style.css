@@ -1,4 +1,33 @@
 /*color idrd #02a7eb*/ 
+@font-face {
+    font-family: 'GothamRndBold';
+    src: url('fonts/GothamRndBold.eot');
+    src: url('fonts/GothamRndBold.eot') format('embedded-opentype'),
+         url('fonts/GothamRndBold.woff2') format('woff2'),
+         url('fonts/GothamRndBold.woff') format('woff'),
+         url('fonts/GothamRndBold.ttf') format('truetype'),
+         url('fonts/GothamRndBold.svg#GothamRndBold') format('svg');
+}
+
+@font-face {
+    font-family: 'GothamRndLight';
+    src: url('fonts/GothamRndLight.eot');
+    src: url('fonts/GothamRndLight.eot') format('embedded-opentype'),
+         url('fonts/GothamRndLight.woff2') format('woff2'),
+         url('fonts/GothamRndLight.woff') format('woff'),
+         url('fonts/GothamRndLight.ttf') format('truetype'),
+         url('fonts/GothamRndLight.svg#GothamRndLight') format('svg');
+}
+
+@font-face {
+    font-family: 'GothamRndMedium';
+    src: url('fonts/GothamRndMedium.eot');
+    src: url('fonts/GothamRndMedium.eot') format('embedded-opentype'),
+         url('fonts/GothamRndMedium.woff2') format('woff2'),
+         url('fonts/GothamRndMedium.woff') format('woff'),
+         url('fonts/GothamRndMedium.ttf') format('truetype'),
+         url('fonts/GothamRndMedium.svg#GothamRndMedium') format('svg');
+}
 
 .menu .scroll-content {
     background: #fff;
@@ -12,6 +41,7 @@
 
 .menu .bar-header h1,
 .menu .bar-header h1 small {
+    font-family: 'GothamRndBold';
     background-color: rgba(255,255,255,.01) !important;
     color: #02a7eb !important;
 }
@@ -36,6 +66,11 @@
 
 .item-content * {
     color: #02a7eb !important;
+}
+
+.item-content i,
+.item-content p {
+    color: #0D9EDA !important;
 }
 
 .item-content i {
@@ -163,12 +198,9 @@
     position: absolute;
     bottom: 0px;
     left: 0px;
-    width: 90%;
-    margin-left: 5%;
+    width: 100%;
     height: 100px;
     background-color: rgba(255,255,255,.95);
-    border-radius: 5px 5px 0 0;
-    box-shadow: 0px 0px 7px #DDD;
 }
 
 .controles-mapa label {
