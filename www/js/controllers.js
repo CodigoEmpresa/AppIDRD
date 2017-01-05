@@ -33,27 +33,39 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('InicioCtrl', function (api_ciclovia, $scope, $state, $rootScope, $ionicHistory, Usuario, STORAGE) {
+.controller('InicioCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario, STORAGE, Utils) {
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
 
-    (function (){
-        Usuario.all().then(function (data) {
-            if (data.length > 0)
-            {
-                api_ciclovia.obtenerIdUsuario(data[0].identificacion).then(function (idPersona) {
-                    $state.go('ciclovia.noticias');
-                    data[0].id_persona = parseInt(idPersona);
+    $scope.type = '', $scope.isOnline = false;
+    $scope.login = function()
+    {
+        Utils.isOnline().then(function(online)
+        {
+            $scope.isOnline = online;
 
-                    STORAGE.set('usuario', data[0]);
+            if ($scope.isOnline)
+            {
+                Usuario.all().then(function (data) {
+                    if (data.length > 0)
+                    {
+                        api_ciclovia.obtenerIdUsuario(data[0].identificacion).then(function (idPersona) {
+                            $state.go('ciclovia.noticias');
+                            data[0].id_persona = parseInt(idPersona);
+
+                            STORAGE.set('usuario', data[0]);
+                        });
+                        
+                    } else {
+                        $state.go('registro');
+                    }
                 });
-                
-            } else {
-                $state.go('registro');
             }
         });
-    })();
+    };
+
+    $scope.login();
 })
 
 .controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario) {
@@ -77,53 +89,110 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('NoticiasCtrl', function (api_ciclovia, $scope, $ionicLoading) {
-    $ionicLoading.show();
+.controller('NoticiasCtrl', function (api_ciclovia, $scope, $ionicLoading, Utils) {
+    
+    $scope.load = function()
+    {
+        Utils.isOnline().then(function(online)
+        {
+            $scope.isOnline = online;
 
-    api_ciclovia.getNews().then(function (news) {
-        $scope.news = news;
-        $ionicLoading.hide();
-    });
-})
+            if ($scope.isOnline)
+            {
+                $ionicLoading.show();
+                api_ciclovia.getNews().then(function (news) {
+                    angular.forEach(news, function(n, key) {
+                        Utils.isImage(n.imgNoticia).then(function(res){
+                            if (!res)
+                            {
+                                n.imgNoticia = 'NO';
+                            }
+                        });
+                    });
 
-.controller('EventosCtrl', function(api_ciclovia, $scope, $ionicLoading) {
-    $ionicLoading.show();
+                    $scope.news = news;
+                    $ionicLoading.hide();
+                });
 
-    api_ciclovia.getEvents().then(function (events) {
-        $scope.events = events;
-        $ionicLoading.hide();
-    });
-})
-
-.controller('ChatCtrl', function (api_ciclovia, $scope, $ionicLoading, STORAGE) {
-    $ionicLoading.show();
-    var usuario = STORAGE.get('usuario');
-
-    $scope.recargar = function () {
-        api_ciclovia.getMessages().then(function (messages) {
-            $scope.messages = messages;
-            $ionicLoading.hide();
+                $scope.imageExists = function(src)
+                {
+                    var result = Utils.isImage(src).then(function(result) {
+                        $scope.result = result;
+                    });
+                }
+            }
         });
     }
 
-    $scope.personas_idrd = [6];
-
-    $scope.enviarMensaje = function ()
-    {
-        if ($scope.message.trim() != '')
-        {
-            api_ciclovia.sendMessage($scope.message.trim(), usuario.id_persona).then(function (result) {
-                $ionicLoading.show();
-                $scope.recargar();
-                $scope.message = '';
-            });
-        }
-    }
-
-    $scope.recargar();
+    $scope.load();
 })
 
-.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter, $timeout) {
+.controller('EventosCtrl', function(api_ciclovia, $scope, $ionicLoading, Utils) {
+    $scope.load = function()
+    {
+        Utils.isOnline().then(function(online)
+        {
+            $scope.isOnline = online;
+
+            if ($scope.isOnline)
+            {
+                $ionicLoading.show();
+
+                api_ciclovia.getEvents().then(function (events) {
+                    $scope.events = events;
+                    $ionicLoading.hide();
+                });
+            }
+        });
+    }
+
+    $scope.load();
+})
+
+.controller('ChatCtrl', function (api_ciclovia, $scope, $ionicLoading, STORAGE, Utils) {
+    $scope.load = function()
+    {
+        Utils.isOnline().then(function(online)
+        {
+            $scope.isOnline = online;
+
+            if ($scope.isOnline)
+            {
+                $ionicLoading.show();
+                var usuario = STORAGE.get('usuario');
+
+                $scope.recargar = function () {
+                    api_ciclovia.getMessages().then(function (messages) {
+                        $scope.messages = messages;
+                        $ionicLoading.hide();
+                    });
+
+                    console.log('test');
+                }
+
+                $scope.personas_idrd = [0, 6, 2044];
+
+                $scope.enviarMensaje = function ()
+                {
+                    if ($scope.message.trim() != '')
+                    {
+                        api_ciclovia.sendMessage($scope.message.trim(), usuario.id_persona).then(function (result) {
+                            $ionicLoading.show();
+                            $scope.recargar();
+                            $scope.message = '';
+                        });
+                    }
+                }
+
+                $scope.recargar();
+            }
+        });
+    }
+
+    $scope.load();
+})
+
+.controller('CorredoresCtrl', function (api_ciclovia, $rootScope, $scope, $filter, $timeout, Utils) {
     $scope.corredor;
     $scope.corredor_actual = 0;
     $scope.alimentos = true;
@@ -271,13 +340,26 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('RecomendacionesCtrl', function(api_ciclovia, $scope, $ionicLoading) {
-    $ionicLoading.show();
+.controller('RecomendacionesCtrl', function(api_ciclovia, $scope, $ionicLoading, Utils) {
+    $scope.load = function()
+    {
+        Utils.isOnline().then(function(online)
+        {
+            $scope.isOnline = online;
 
-    api_ciclovia.getRecommendations().then(function (items) {
-        $scope.items = items;
-        $ionicLoading.hide();
-    });
+            if ($scope.isOnline)
+            {
+                $ionicLoading.show();
 
-    $scope.items = [];
+                api_ciclovia.getRecommendations().then(function (items) {
+                    $scope.items = items;
+                    $ionicLoading.hide();
+                });
+
+                $scope.items = [];
+            }
+        });
+    }
+
+    $scope.load();
 });

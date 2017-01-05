@@ -3,14 +3,28 @@
         Noticias
     </ion-nav-title>
     <ion-content>
-        <div class="card" ng-repeat="item in news">
+        <div ng-if="!isOnline">
+            <div class="row">
+                <div class="col">
+                    <h5 class="positive" style="text-align:center;">
+                        En este momento no tienes conexión a internet.<br> haz click en recargar para ver el contenido.
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-33 col-offset-33" style="text-align:center;">
+                    <button class="button button-small button-positive icon-left ion-refresh" ng-click="load()"> Recargar</button>
+                </div>
+            </div>
+        </div>
+        <div class="card" ng-repeat="item in news" ng-if="isOnline">
             <div class="item item-avatar">
                 <img src="img/ciclovia.jpg">
                 <h2>{{ item.titulo }}</h2>
                 <p>{{ item.hora | dateToISO | date: "EEEE, d 'de' MMMM 'de' y" }}</p>
             </div>
             <div class="item item-image" ng-if="item.imgNoticia != 'NO'">
-                <img class="card-image" src="{{ item.imgNoticia }}" />
+                <img class="card-image" ng-src="{{ item.imgNoticia }}" />
             </div>
             <div class="item item-body">
                 <p> {{ item.descripcion }} </p>

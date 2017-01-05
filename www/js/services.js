@@ -207,4 +207,65 @@
     }
 
     return self;
+})
+.factory('Utils', function($ionicPlatform,  $q, $rootScope, $cordovaNetwork) {
+    return {
+        isImage: function(src) {
+            var deferred = $q.defer();
+            var image = new Image();
+
+            image.onerror = function() {
+                deferred.resolve(false);
+            };
+            image.onload = function() {
+                deferred.resolve(true);
+            };
+            image.src = src;
+            return deferred.promise;
+        },
+        isOnline: function()
+        {
+            var deferred = $q.defer();
+            $ionicPlatform.ready(function () 
+            {
+                if (ionic.Platform.isWebView()) 
+                {
+                    deferred.resolve($cordovaNetwork.isOnline());
+                } else {
+                    deferred.resolve(navigator.onLine);
+                }
+            });
+
+            return deferred.promise;
+        },
+        isOffline: function()
+        {
+            if(ionic.Platform.isWebView()){
+                return !$cordovaNetwork.isOnline();    
+            } else {
+                return !navigator.onLine;
+            }
+        },
+        startWatching: function()
+        {
+            if(ionic.Platform.isWebView()){
+                $rootScope.$on('$cordovaNetwork:online', function(event, networkState)
+                {
+                    console.log("went online");
+                });
+                $rootScope.$on('$cordovaNetwork:offline', function(event, networkState)
+                {
+                    console.log("went offline");
+                });
+            } else {
+                window.addEventListener("online", function(e) {
+                    console.log("went online");
+                }, false);    
+ 
+                window.addEventListener("offline", function(e) {
+                    console.log("went offline");
+                }, false);  
+            }       
+        }
+    };
 });

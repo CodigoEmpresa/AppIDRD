@@ -3,7 +3,21 @@
         <img src="img/logo.png" width="330px" />
     </h2>
     <br />
-    <h2 class="center">
+    <div ng-if="!isOnline">
+    	<div class="row">
+    		<div class="col">
+    			<h5 class="positive" style="text-align:center;">
+	    			En este momento no tienes conexión a internet.<br>Para volver a intentarlo haz click en ingresar.
+	    		</h5>
+    		</div>
+    	</div>
+	    <div class="row">
+	    	<div class="col col-33 col-offset-33" style="text-align:center;">
+	    		<button class="button button-small button-positive icon-left ion-shuffle" ng-click="login()"> Ingresar</button>
+	    	</div>
+	    </div>
+    </div>
+    <h2 class="center" ng-if="isOnline">
         <ion-spinner icon="android"></ion-spinner>
     </h2>
 </ion-view>
