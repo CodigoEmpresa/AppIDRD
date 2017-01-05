@@ -3,35 +3,51 @@
         Eventos
     </ion-nav-title>
     <ion-content>
-    	<div class="fecha" ng-repeat="(key, value) in events" ng-if="events.length > 0">
-    		<div class="skew">
-    			<h4>{{ key  | dateToISO | date: "EEEE, d 'de' MMMM 'de' y"}}</h4>
-    		</div>
-    		<div class="card" ng-repeat="item in value">
-	            <div class="item item-avatar">
-	                <img src="img/ciclovia.jpg">
-	                <h2>{{ item.titulo }}</h2>
-	                <p>De {{ item.fechaInicio  | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin  | dateToISO | date: 'h:mm a' }}</p>
-	            </div>
-	            <div class="item item-image" ng-if="item.imgEvento != ''">
-	                <img class="card-image" src="{{ item.imgEvento }}" />
-	            </div>
-	            <div class="item item-body">
-	                <p> {{ item.descripcion }} </p>
-	                <p ng-if="item.link">
-	                    <a ng-href="{{ item.link }}" onclick="window.open(this.href, '_system', 'location=no'); return false;" class="subdued">Ver mas</a>
-	                </p>
-	            </div>
-	        </div>
-    	</div>
-    	<div ng-if="events.length == 0">
-    		<div class="row">
-    			<div class="col">
-		    		<h5 class="positive" style="text-align:center;">
-		    			No se han registrado eventos en los próximos días.
-		    		</h5>
-    			</div>
-    		</div>
+    	<div ng-if="!isOnline">
+            <div class="row">
+                <div class="col">
+                    <h5 class="positive" style="text-align:center;">
+                        En este momento no tienes conexión a internet.<br> haz click en recargar para ver el contenido.
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-33 col-offset-33" style="text-align:center;">
+                    <button class="button button-small button-positive icon-left ion-refresh" ng-click="load()"> Recargar</button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="isOnline">
+	    	<div class="fecha" ng-repeat="(key, value) in events" ng-if="events.length > 0">
+	    		<div class="skew">
+	    			<h4>{{ key  | dateToISO | date: "EEEE, d 'de' MMMM 'de' y"}}</h4>
+	    		</div>
+	    		<div class="card" ng-repeat="item in value">
+		            <div class="item item-avatar">
+		                <img src="img/ciclovia.jpg">
+		                <h2>{{ item.titulo }}</h2>
+		                <p>De {{ item.fechaInicio  | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin  | dateToISO | date: 'h:mm a' }}</p>
+		            </div>
+		            <div class="item item-image" ng-if="item.imgEvento != ''">
+		                <img class="card-image" src="{{ item.imgEvento }}" />
+		            </div>
+		            <div class="item item-body">
+		                <p> {{ item.descripcion }} </p>
+		                <p ng-if="item.link">
+		                    <a ng-href="{{ item.link }}" onclick="window.open(this.href, '_system', 'location=no'); return false;" class="subdued">Ver mas</a>
+		                </p>
+		            </div>
+		        </div>
+	    	</div>
+	    	<div ng-if="events.length == 0">
+	    		<div class="row">
+	    			<div class="col">
+			    		<h5 class="positive" style="text-align:center;">
+			    			No se han registrado eventos en los próximos días.
+			    		</h5>
+	    			</div>
+	    		</div>
+	    	</div>
     	</div>
     </ion-content>
 </ion-view>

@@ -3,7 +3,21 @@
         Chat
     </ion-nav-title>
     <ion-content>
-        <div class="bubble" ng-repeat="item in messages">
+        <div ng-if="!isOnline">
+            <div class="row">
+                <div class="col">
+                    <h5 class="positive" style="text-align:center;">
+                        En este momento no tienes conexión a internet.<br> haz click en recargar para ver el contenido.
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-33 col-offset-33" style="text-align:center;">
+                    <button class="button button-small button-positive icon-left ion-refresh" ng-click="load()"> Recargar</button>
+                </div>
+            </div>
+        </div>
+        <div class="bubble" ng-repeat="item in messages" ng-if="isOnline">
             <div ng-class="{'message': true, 'idrd': personas_idrd.indexOf(item.idPersona) > -1 }">
                 <div ng-if="personas_idrd.indexOf(item.idPersona) < 0" class="row">
                     <div class="col col-20 col-top">
