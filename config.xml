@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget android-versionCode="1" id="co.gov.idrd.ciclovia" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Ciclovía Bogota</name>
+<widget android-versionCode="1" id="idrd.gov.co.cicloviabogota" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Ciclovía Bogotá</name>
   <description>
         Aplicación de ciclovia
     </description>
