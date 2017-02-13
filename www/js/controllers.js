@@ -166,8 +166,6 @@ angular.module('starter.controllers', [])
                         $scope.messages = messages;
                         $ionicLoading.hide();
                     });
-
-                    console.log('test');
                 }
 
                 $scope.personas_idrd = [0, 6, 2044];
