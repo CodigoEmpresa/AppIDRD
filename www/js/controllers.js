@@ -68,7 +68,7 @@ angular.module('starter.controllers', [])
     $scope.login();
 })
 
-.controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario) {
+.controller('RegistroCtrl', function (api_ciclovia, $scope, $state, $ionicHistory, Usuario, STORAGE) {
     $ionicHistory.nextViewOptions({
         disableBack: true
     });
@@ -80,7 +80,25 @@ angular.module('starter.controllers', [])
                 if (resultado)
                 {
                     Usuario.add({ identificacion: $scope.identificacion, nombre: $scope.nombre });
-                    $state.go('ciclovia.noticias');
+                    setTimeout(function()
+                    {
+                        Usuario.all().then(function (data) {
+                            if (data.length > 0)
+                            {
+                                api_ciclovia.obtenerIdUsuario(data[0].identificacion).then(function (idPersona) {
+                                    $state.go('ciclovia.noticias');
+                                    data[0].id_persona = parseInt(idPersona);
+
+                                    STORAGE.set('usuario', data[0]);
+                                });
+                            } else {
+                                $state.go('registro');
+                            }
+                        });
+                        
+                        $state.go('ciclovia.noticias');
+
+                    }, 500);
                 }
             });
         } else {
