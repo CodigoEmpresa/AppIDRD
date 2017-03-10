@@ -1,6 +1,6 @@
 <ion-view>
     <ion-nav-title>
-        Eventos
+        Eventos ({{ totalEventos }})
     </ion-nav-title>
     <ion-content>
     	<div ng-if="!isOnline">
@@ -18,18 +18,18 @@
             </div>
         </div>
         <div ng-if="isOnline">
-	    	<div class="fecha" ng-repeat="(key, value) in events" ng-if="events.length > 0">
+	    	<div class="fecha" ng-repeat="(key, value) in events" ng-if="totalEventos > 0">
 	    		<div class="skew">
-	    			<h4>{{ key  | dateToISO | date: "EEEE, d 'de' MMMM 'de' y"}}</h4>
+	    			<h4>{{ key+' 00:00:00' | dateToISO | date: "EEEE, d 'de' MMMM 'de' y" }}</h4>
 	    		</div>
 	    		<div class="card" ng-repeat="item in value">
 		            <div class="item item-avatar">
 		                <img src="img/ciclovia.jpg">
 		                <h2>{{ item.titulo }}</h2>
-		                <p>De {{ item.fechaInicio  | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin  | dateToISO | date: 'h:mm a' }}</p>
+		                <p>De {{ item.fechaInicio  | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin | dateToISO | date: 'h:mm a' }}</p>
 		            </div>
-		            <div class="item item-image" ng-if="item.imgEvento != ''">
-		                <img class="card-image" src="{{ item.imgEvento }}" />
+		            <div class="item item-image" ng-if="item.imgEvento != 'NO'">
+		                <img class="card-image" ng-src="{{ item.imgEvento }}" />
 		            </div>
 		            <div class="item item-body">
 		                <p> {{ item.descripcion }} </p>
@@ -39,7 +39,7 @@
 		            </div>
 		        </div>
 	    	</div>
-	    	<div ng-if="events.length == 0">
+	    	<div ng-if="totalEventos == 0">
 	    		<div class="row">
 	    			<div class="col">
 			    		<h5 class="positive" style="text-align:center;">

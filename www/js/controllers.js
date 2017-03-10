@@ -151,12 +151,30 @@ angular.module('starter.controllers', [])
         Utils.isOnline().then(function(online)
         {
             $scope.isOnline = online;
+            $scope.totalEventos = 0;
 
             if ($scope.isOnline)
             {
                 $ionicLoading.show();
 
                 api_ciclovia.getEvents().then(function (events) {
+
+                    angular.forEach(events, function(n, j)
+                    {
+                        angular.forEach(n, function(event, k)
+                        {
+                            Utils.isImage(event.imgEvento).then(function(res)
+                            {
+                                if (!res)
+                                {
+                                    n.imgEvento = 'NO';
+                                }
+                            });
+
+                            $scope.totalEventos++;
+                        });
+                    });
+
                     $scope.events = events;
                     $ionicLoading.hide();
                 });
