@@ -1,20 +1,26 @@
 angular.module('starter.controllers', [])
 
-.controller('MenuCtrl', function($scope, $ionicSideMenuDelegate){
+.controller('MenuCtrl', function($scope, $timeout, $rootScope, $ionicSideMenuDelegate){
+
+    /*$rootScope.side_menu = document.getElementsByTagName("ion-side-menu")[0];
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromParams, toParams) {
+        if (toState.name != 'ciclovia.corredores') {
+            $rootScope.side_menu.style.visibility = "visible";
+        }
+    });*/
     $scope.$watch(function () {
         return $ionicSideMenuDelegate.getOpenRatio();
     }, function (newValue, oldValue) {
-        if (newValue == 0) {
-            $scope.hideLeft = true;
-        } else {
-            $scope.hideLeft = false;
-        }
+        $timeout(function(){
+            $scope.hideLeft = (newValue * 275) - 275;
+        });
     });
 })
 
 .controller('MediaCtrl', function($scope, $timeout, $cordovaNativeAudio, $ionicPlatform) {
 
-    $scope.play = function() 
+    $scope.play = function()
     {
         $scope.status = true;
         $cordovaNativeAudio.preloadComplex('cancion', ($ionicPlatform.is('android') ? '' : '') + 'media/ciclovia.mp3', 1, 1)
@@ -25,7 +31,7 @@ angular.module('starter.controllers', [])
             });
     }
 
-    $scope.stop = function() 
+    $scope.stop = function()
     {
         $scope.status = false;
         $cordovaNativeAudio.stop('cancion');
@@ -56,7 +62,7 @@ angular.module('starter.controllers', [])
 
                             STORAGE.set('usuario', data[0]);
                         });
-                        
+
                     } else {
                         $state.go('registro');
                     }
@@ -74,7 +80,7 @@ angular.module('starter.controllers', [])
     });
 
     $scope.registrarse = function (isValid) {
-        if(isValid)     
+        if(isValid)
         {
             api_ciclovia.registro($scope.identificacion, $scope.nombre).then(function (resultado) {
                 if (resultado)
@@ -95,20 +101,20 @@ angular.module('starter.controllers', [])
                                 $state.go('registro');
                             }
                         });
-                        
+
                         $state.go('ciclovia.noticias');
 
                     }, 500);
                 }
             });
         } else {
-            alert('Por favor ingrese su nombre y número de identificación.');
+            alert('Por favor ingrese su nombre y nï¿½mero de identificaciï¿½n.');
         }
     }
 })
 
 .controller('NoticiasCtrl', function (api_ciclovia, $scope, $ionicLoading, Utils) {
-    
+
     $scope.load = function()
     {
         Utils.isOnline().then(function(online)
@@ -262,8 +268,8 @@ angular.module('starter.controllers', [])
           'duration': 3000
         });
 
-        api_ciclovia.obtenerCorredores().then(function(corredores)  
-        { 
+        api_ciclovia.obtenerCorredores().then(function(corredores)
+        {
             $scope.corredores = $filter('filter')(corredores, function(value, index, array){
                 return value.idCorredor > 0;
             }, true);
@@ -308,8 +314,8 @@ angular.module('starter.controllers', [])
             }
 
             if(
-                (punto.idPunto == 1 && $scope.alimentos) || 
-                (punto.idPunto == 2 && $scope.ciclotaller) || 
+                (punto.idPunto == 1 && $scope.alimentos) ||
+                (punto.idPunto == 2 && $scope.ciclotaller) ||
                 (punto.idPunto == 3 && $scope.accesorios)
             )
             {
@@ -333,7 +339,7 @@ angular.module('starter.controllers', [])
                 markers.push(marker);
             }
         });
-    
+
         map.clear();
 
         map.addPolyline({

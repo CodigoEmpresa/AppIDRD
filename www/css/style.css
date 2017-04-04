@@ -1,4 +1,4 @@
-/*color idrd #02a7eb*/ 
+/*color idrd #02a7eb*/
 @font-face {
     font-family: 'GothamRndBold';
     src: url('fonts/GothamRndBold.eot');
@@ -30,20 +30,20 @@
 }
 
 .menu .scroll-content {
-    background: #fff;
+    background: #0D9EDA;
     overflow-y: auto;
     bottom: 40px;
 }
 
 .menu .bar-header {
-    background: #fff;
+    background: #0D9EDA;
 }
 
 .menu .bar-header h1,
 .menu .bar-header h1 small {
     font-family: 'GothamRndBold';
     background-color: rgba(255,255,255,.01) !important;
-    color: #02a7eb !important;
+    color: #FFF !important;
 }
 
 .menu .bar-header h1 {
@@ -52,7 +52,7 @@
 }
 
 .bar-stable * {
-    color: #02a7eb !important;
+    color: #02A7EB !important;
 }
 
 .list .item {
@@ -70,7 +70,7 @@
 
 .item-content i,
 .item-content p {
-    color: #0D9EDA !important;
+    color: #FFF !important;
 }
 
 .item-content i {
@@ -125,10 +125,10 @@
     width: 100%;
     height: 40px;
     padding-left: 35px;
-    background-color: #fefefe;
+    background-color: #f4fcff;
 }
 
-.social-networks span, 
+.social-networks span,
 .social-networks a {
     display: inline-block;
     line-height: 40px;
@@ -231,7 +231,13 @@
   color: #02a7eb;
 }
 
-ion-app._gmaps_cdv_ .nav-decor {
-    background-color: rgba(0,0,0,0) !important;
+.menu {
+    -webkit-transition: all 50ms ease-out;
+    -moz-transition: all 50ms ease-out;
+    -o-transition: all 50ms ease-out;
+    transition: all 50ms ease-out;
 }
 
+/*ion-app._gmaps_cdv_ .nav-decor {
+    background-color: rgba(0,0,0,0) !important;
+}*/

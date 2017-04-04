@@ -9,10 +9,10 @@
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left" ng-controller="MenuCtrl" data-ng-hide="hideLeft">
+  <ion-side-menu side="left" ng-controller="MenuCtrl" ng-style="{'transform': 'translate3d('+hideLeft+'px, 0px, 0px)'}">
     <ion-header-bar class="bar-stable">
       <h1 class="title">
-          <small>IDRD</small>  Ciclovia 
+          <small>IDRD</small>  Ciclovia
       </h1>
     </ion-header-bar>
     <ion-content scroll="false">
@@ -70,7 +70,7 @@
       </ion-list>
     </ion-content>
   <div ng-controller="MediaCtrl" class="social-networks">
-      <span>Síguenos en:</span> 
+      <span>Síguenos en:</span>
       <a href="https://www.facebook.com/CicloviaBogotaIDRD" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-facebook.png" alt="" height="30px"></a>&nbsp;
       <a href="https://twitter.com/CicloviaBogota" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-twitter.png" alt="" height="30px"></a>&nbsp;
       <a href="https://www.youtube.com/user/cicloviaforo" onclick="window.open(this.href, '_system', 'location=no'); return false;"><img src="img/ic-youtube.png" alt="" height="30px"></a>
