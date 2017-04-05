@@ -8,13 +8,22 @@ angular.module('starter.controllers', [])
         if (toState.name != 'ciclovia.corredores') {
             $rootScope.side_menu.style.visibility = "visible";
         }
-    });*/
+    });
+
     $scope.$watch(function () {
         return $ionicSideMenuDelegate.getOpenRatio();
     }, function (newValue, oldValue) {
-        $timeout(function(){
-            $scope.hideLeft = (newValue * 275) - 275;
-        });
+        if (newValue == 0) {
+            $scope.hideLeft = true;
+        } else {
+            $scope.hideLeft = false;
+        }
+    });
+    */
+    $scope.$watch(function () {
+        return $ionicSideMenuDelegate.getOpenRatio();
+    }, function (newValue, oldValue) {
+        $scope.hideLeft = (newValue * 275) - 275;
     });
 })
 

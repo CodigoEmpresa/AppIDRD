@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view cache-view="false">
     <ion-nav-title>
         Eventos ({{ totalEventos }})
     </ion-nav-title>
@@ -26,7 +26,7 @@
 		            <div class="item item-avatar">
 		                <img src="img/ciclovia.jpg">
 		                <h2>{{ item.titulo }}</h2>
-		                <p>De {{ item.fechaInicio  | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin | dateToISO | date: 'h:mm a' }}</p>
+		                <p>De {{ item.fechaInicio | dateToISO | date: 'h:mm a' }} a {{ item.fechaFin | dateToISO | date: 'h:mm a' }}</p>
 		            </div>
 		            <div class="item item-image" ng-if="item.imgEvento != 'NO'">
 		                <img class="card-image" ng-src="{{ item.imgEvento }}" />
